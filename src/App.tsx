@@ -1,6 +1,11 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import styled from "styled-components/macro";
+
+const Test = styled.div`
+  color: red;
+`;
 
 export const App: React.FC = () => {
   return (
@@ -20,6 +25,14 @@ export const App: React.FC = () => {
             Learn React
           </a>
           <div>hoge</div>
+          <Test>aaaaa</Test>
+          <div
+            css={`
+              color: purple;
+            `}
+          >
+            cccc
+          </div>
         </header>
       </div>
     </>
