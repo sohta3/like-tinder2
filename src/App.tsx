@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import { Deck } from "./components/Deck";
 import { Reset } from "styled-reset";
 

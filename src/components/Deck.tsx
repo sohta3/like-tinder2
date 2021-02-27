@@ -110,7 +110,7 @@ export const Deck: React.FC = () => {
         padding: 1rem;
         display: flex;
         justify-content: center;
-        height: 80vh;
+        height: 84vh;
         flex-direction: column;
       `}
     >
