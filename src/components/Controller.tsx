@@ -2,8 +2,8 @@ import React from "react";
 import "styled-components/macro";
 
 type ContrllerProps = {
-  handleSkip: () => void;
-  handleLike: () => void;
+  handleSkip: (action: string) => void;
+  handleLike: (action: string) => void;
 };
 export const Controller: React.FC<ContrllerProps> = ({
   handleLike,
@@ -16,8 +16,8 @@ export const Controller: React.FC<ContrllerProps> = ({
         position: relative;
       `}
     >
-      <button onClick={handleSkip}>skip</button>
-      <button onClick={handleLike}>like</button>
+      <button onClick={() => handleSkip("skip")}>skip</button>
+      <button onClick={() => handleLike("like")}>like</button>
     </div>
   );
 };

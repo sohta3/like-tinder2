@@ -88,14 +88,20 @@ const data = [
 
 export const Deck: React.FC = () => {
   const [partners, setPartners] = useState<Partner[]>(data);
+  const [isLiked, setIsLiked] = React.useState(false);
+  const [isSkipped, setIsSkipped] = React.useState(false);
 
   useEffect(() => {
     setPartners(data);
   }, []);
 
-  const handleClickButton = () => {
-    console.log("skip");
-    setPartners(partners.slice(1));
+  const handleClickButton = (action: string) => {
+    action === "like" ? setIsLiked(true) : setIsSkipped(true);
+    setTimeout(() => {
+      setIsLiked(false);
+      setIsSkipped(false);
+      setPartners(partners.slice(1));
+    }, 1000);
   };
 
   return (
@@ -105,13 +111,11 @@ export const Deck: React.FC = () => {
         display: flex;
         justify-content: center;
         height: 80vh;
-        /* width: 100%; */
         flex-direction: column;
       `}
     >
       <div
         css={`
-          /* width: 100%; */
           height: 100%;
           position: relative;
         `}
@@ -122,6 +126,8 @@ export const Deck: React.FC = () => {
             name={partners[1].name}
             pic={partners[1].pics[0]}
             age={partners[1].age}
+            isLiked={false}
+            isSkipped={false}
           ></Card>
         ) : null}
 
@@ -131,15 +137,19 @@ export const Deck: React.FC = () => {
             name={partners[0].name}
             pic={partners[0].pics[0]}
             age={partners[0].age}
+            isLiked={isLiked}
+            isSkipped={isSkipped}
           ></Card>
         ) : (
           <span>empty</span>
         )}
       </div>
-      <Controller
-        handleSkip={handleClickButton}
-        handleLike={handleClickButton}
-      />
+      {partners[0] !== undefined ? (
+        <Controller
+          handleSkip={handleClickButton}
+          handleLike={handleClickButton}
+        />
+      ) : null}
     </div>
   );
 };
