@@ -5,9 +5,17 @@ type CardProp = {
   name: string;
   pic: string;
   age: number;
+  handleSkip: () => void;
+  handleLike: () => void;
 };
 
-export const Card: React.FC<CardProp> = ({ name, pic, age }) => {
+export const Card: React.FC<CardProp> = ({
+  name,
+  pic,
+  age,
+  handleSkip,
+  handleLike,
+}) => {
   return (
     <div
       css={`
@@ -32,20 +40,8 @@ export const Card: React.FC<CardProp> = ({ name, pic, age }) => {
         <span>{name}</span>
         <span>{age}</span>
         <div>
-          <button
-            onClick={() => {
-              console.log("skip");
-            }}
-          >
-            skip
-          </button>
-          <button
-            onClick={() => {
-              console.log("like");
-            }}
-          >
-            like
-          </button>
+          <button onClick={handleSkip}>skip</button>
+          <button onClick={handleLike}>like</button>
         </div>
       </div>
     </div>

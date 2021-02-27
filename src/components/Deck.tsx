@@ -77,6 +77,16 @@ const partners = [
 ];
 
 export const Deck: React.FC = () => {
+  //   const [partners, setPartners] = useState(data);
+  //   const [currentPartner, setCurrentPartner] = useState();
+  //   const [nextPartner, setNextPartner] = useState();
+
+  const handleSkip = () => {
+    console.log("skip");
+  };
+  const handleLike = () => {
+    console.log("like");
+  };
   return (
     <div
       css={`
@@ -90,6 +100,8 @@ export const Deck: React.FC = () => {
             name={partner.name}
             pic={partner.pics[0]}
             age={partner.age}
+            handleSkip={handleSkip}
+            handleLike={handleLike}
           ></Card>
         );
       })}
