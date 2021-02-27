@@ -5,27 +5,22 @@ type CardProp = {
   name: string;
   pic: string;
   age: number;
-  handleSkip: () => void;
-  handleLike: () => void;
 };
 
-export const Card: React.FC<CardProp> = ({
-  name,
-  pic,
-  age,
-  handleSkip,
-  handleLike,
-}) => {
+export const Card: React.FC<CardProp> = ({ name, pic, age }) => {
   return (
     <div
       css={`
-        margin: 0 auto;
-        padding: 16px 0;
+        position: absolute;
+        background-color: #fff;
+        /* width: 100%; */
+        border-radius: 8px;
+        box-shadow: 0 10px 25px 0 rgb(0 0 0 / 10%);
       `}
     >
       <div
         css={`
-          width: 100%;
+          /* width: 100%; */
         `}
       >
         <img
@@ -35,14 +30,20 @@ export const Card: React.FC<CardProp> = ({
             width: 100%;
             height: 60vh;
             object-fit: cover;
+            border-top-right-radius: 8px;
+            border-top-left-radius: 8px;
           `}
         ></img>
-        <span>{name}</span>
+        <span
+          css={`
+            padding: 12px;
+            font-size: 2rem;
+            display: inline-block;
+          `}
+        >
+          {name}
+        </span>
         <span>{age}</span>
-        <div>
-          <button onClick={handleSkip}>skip</button>
-          <button onClick={handleLike}>like</button>
-        </div>
       </div>
     </div>
   );

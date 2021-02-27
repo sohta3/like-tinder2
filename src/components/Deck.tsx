@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "styled-components/macro";
 import { Card } from "./Card";
+import { Controller } from "./Controller";
 
 type Partner = {
   id: number;
@@ -100,32 +101,45 @@ export const Deck: React.FC = () => {
   return (
     <div
       css={`
-        padding: 2rem;
+        padding: 1rem;
+        display: flex;
+        justify-content: center;
+        height: 80vh;
+        /* width: 100%; */
+        flex-direction: column;
       `}
     >
-      {partners[0] !== undefined ? (
-        <Card
-          key={partners[0].id}
-          name={partners[0].name}
-          pic={partners[0].pics[0]}
-          age={partners[0].age}
-          handleSkip={handleClickButton}
-          handleLike={handleClickButton}
-        ></Card>
-      ) : (
-        <span>empty</span>
-      )}
+      <div
+        css={`
+          /* width: 100%; */
+          height: 100%;
+          position: relative;
+        `}
+      >
+        {partners[1] !== undefined ? (
+          <Card
+            key={partners[1].id}
+            name={partners[1].name}
+            pic={partners[1].pics[0]}
+            age={partners[1].age}
+          ></Card>
+        ) : null}
 
-      {partners[1] !== undefined ? (
-        <Card
-          key={partners[1].id}
-          name={partners[1].name}
-          pic={partners[1].pics[0]}
-          age={partners[1].age}
-          handleSkip={handleClickButton}
-          handleLike={handleClickButton}
-        ></Card>
-      ) : null}
+        {partners[0] !== undefined ? (
+          <Card
+            key={partners[0].id}
+            name={partners[0].name}
+            pic={partners[0].pics[0]}
+            age={partners[0].age}
+          ></Card>
+        ) : (
+          <span>empty</span>
+        )}
+      </div>
+      <Controller
+        handleSkip={handleClickButton}
+        handleLike={handleClickButton}
+      />
     </div>
   );
 };
