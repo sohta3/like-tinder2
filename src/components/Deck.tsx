@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "styled-components/macro";
 import { Card } from "./Card";
 
-const partners = [
+type Partner = {
+  id: number;
+  pics: string[];
+  name: string;
+  age: number;
+  distance: string;
+  bio: string;
+};
+
+const data = [
   {
     id: 1,
     pics: [
@@ -77,34 +86,46 @@ const partners = [
 ];
 
 export const Deck: React.FC = () => {
-  //   const [partners, setPartners] = useState(data);
-  //   const [currentPartner, setCurrentPartner] = useState();
-  //   const [nextPartner, setNextPartner] = useState();
+  const [partners, setPartners] = useState<Partner[]>(data);
 
-  const handleSkip = () => {
+  useEffect(() => {
+    setPartners(data);
+  }, []);
+
+  const handleClickButton = () => {
     console.log("skip");
+    setPartners(partners.slice(1));
   };
-  const handleLike = () => {
-    console.log("like");
-  };
+
   return (
     <div
       css={`
         padding: 2rem;
       `}
     >
-      {partners.map((partner) => {
-        return (
-          <Card
-            key={partner.id}
-            name={partner.name}
-            pic={partner.pics[0]}
-            age={partner.age}
-            handleSkip={handleSkip}
-            handleLike={handleLike}
-          ></Card>
-        );
-      })}
+      {partners[0] !== undefined ? (
+        <Card
+          key={partners[0].id}
+          name={partners[0].name}
+          pic={partners[0].pics[0]}
+          age={partners[0].age}
+          handleSkip={handleClickButton}
+          handleLike={handleClickButton}
+        ></Card>
+      ) : (
+        <span>empty</span>
+      )}
+
+      {partners[1] !== undefined ? (
+        <Card
+          key={partners[1].id}
+          name={partners[1].name}
+          pic={partners[1].pics[0]}
+          age={partners[1].age}
+          handleSkip={handleClickButton}
+          handleLike={handleClickButton}
+        ></Card>
+      ) : null}
     </div>
   );
 };
