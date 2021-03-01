@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "styled-components/macro";
 import { Card } from "./Card";
 import { Controller } from "./Controller";
@@ -90,10 +90,6 @@ export const Deck: React.FC = () => {
   const [partners, setPartners] = useState<Partner[]>(data);
   const [isLiked, setIsLiked] = React.useState(false);
   const [isSkipped, setIsSkipped] = React.useState(false);
-
-  useEffect(() => {
-    setPartners(data);
-  }, []);
 
   const handleClickButton = (action: string) => {
     action === "like" ? setIsLiked(true) : setIsSkipped(true);
