@@ -3,7 +3,7 @@ import { keyframes } from "styled-components/macro";
 import { useSpring, animated } from "react-spring";
 import { useDrag } from "react-use-gesture";
 
-const like = keyframes`
+const like = () => keyframes`
   from {
     transform: rotate(0deg);
     opacity: 1;
@@ -14,7 +14,7 @@ const like = keyframes`
   }
 `;
 
-const skip = keyframes`
+const skip = () => keyframes`
   from {
     transform: rotate(0deg);
     opacity: 1;
