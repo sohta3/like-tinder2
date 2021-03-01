@@ -100,6 +100,12 @@ export const Deck: React.FC = () => {
     }, 1000);
   };
 
+  const handleSwipe = () => {
+    setTimeout(() => {
+      setPartners(partners.slice(1));
+    }, 500);
+  };
+
   return (
     <div
       css={`
@@ -124,6 +130,7 @@ export const Deck: React.FC = () => {
             age={partners[1].age}
             isLiked={false}
             isSkipped={false}
+            handleSwipe={null}
           ></Card>
         ) : null}
 
@@ -135,6 +142,7 @@ export const Deck: React.FC = () => {
             age={partners[0].age}
             isLiked={isLiked}
             isSkipped={isSkipped}
+            handleSwipe={handleSwipe}
           ></Card>
         ) : (
           <span>empty</span>

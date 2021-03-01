@@ -26,50 +26,60 @@ const skip = () => keyframes`
 `;
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const Card = ({ name, pic, age, isLiked, isSkipped }) => {
+export const Card = ({ name, pic, age, isLiked, isSkipped, handleSwipe }) => {
   const [{ x, y }, set] = useSpring(() => ({ x: 0, y: 0 }));
   // Set the drag hook and define component movement based on gesture data
-  const bind = useDrag(({ down, movement: [mx, my] }) => {
-    set({ x: down ? mx : 0, y: down ? my : 0 });
-  });
+  const bind = useDrag(
+    ({ down, movement: [mx, my], direction: [xDir], velocity }) => {
+      const trigger = velocity > 0.2; // If you flick hard enough it should trigger the card to fly out
+      const isSwiped = !down && trigger;
+      const dir = xDir < 0 ? -1 : 1; // Direction should either point left or right
+
+      set({
+        x: isSwiped ? (200 + window.innerWidth) * dir : down ? mx : 0,
+        y: down ? my : 0,
+      });
+      if (isSwiped) {
+        handleSwipe();
+      }
+    }
+  );
 
   return (
-    <>
-      <animated.div
-        css={`
-          position: absolute;
-          background-color: #fff;
-          border-radius: 8px;
-          box-shadow: 0 10px 25px 0 rgb(0 0 0 / 10%);
-          animation: ${isLiked ? like : isSkipped ? skip : null} 1s ease-in-out;
-        `}
-        {...bind()}
-        style={{ x, y, touchAction: "none" }}
-      >
-        <div>
-          <img
-            src={pic}
-            alt=""
-            css={`
-              width: 100%;
-              height: 60vh;
-              object-fit: cover;
-              border-top-right-radius: 8px;
-              border-top-left-radius: 8px;
-            `}
-          ></img>
-          <span
-            css={`
-              padding: 12px;
-              font-size: 2rem;
-              display: inline-block;
-            `}
-          >
-            {name}
-          </span>
-          <span>{age}</span>
-        </div>
-      </animated.div>
-    </>
+    <animated.div
+      css={`
+        position: absolute;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 10px 25px 0 rgb(0 0 0 / 10%);
+        animation: ${isLiked ? like : isSkipped ? skip : null} 1s ease-in-out;
+      `}
+      {...bind()}
+      style={{ x, y, touchAction: "none" }}
+    >
+      <div>
+        <img
+          src={pic}
+          alt=""
+          css={`
+            width: 100%;
+            height: 60vh;
+            object-fit: cover;
+            border-top-right-radius: 8px;
+            border-top-left-radius: 8px;
+          `}
+        ></img>
+        <span
+          css={`
+            padding: 12px;
+            font-size: 2rem;
+            display: inline-block;
+          `}
+        >
+          {name}
+        </span>
+        <span>{age}</span>
+      </div>
+    </animated.div>
   );
 };
