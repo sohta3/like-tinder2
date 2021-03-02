@@ -2,6 +2,7 @@ import React from "react";
 import { keyframes } from "styled-components/macro";
 import { useSpring, animated } from "react-spring";
 import { useDrag } from "react-use-gesture";
+import { useHistory } from "react-router-dom";
 
 const like = () => keyframes`
   from {
@@ -27,6 +28,12 @@ const skip = () => keyframes`
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const Card = ({ name, pic, age, isLiked, isSkipped, handleSwipe }) => {
+  const history = useHistory();
+
+  const handleClick = () => {
+    history.push("/profile");
+  };
+
   const [{ x, y }, set] = useSpring(() => ({ x: 0, y: 0 }));
   // Set the drag hook and define component movement based on gesture data
   const bind = useDrag(
@@ -69,16 +76,18 @@ export const Card = ({ name, pic, age, isLiked, isSkipped, handleSwipe }) => {
             border-top-left-radius: 8px;
           `}
         ></img>
-        <span
-          css={`
-            padding: 12px;
-            font-size: 2rem;
-            display: inline-block;
-          `}
-        >
-          {name}
-        </span>
-        <span>{age}</span>
+        <div onClick={handleClick}>
+          <span
+            css={`
+              padding: 12px;
+              font-size: 2rem;
+              display: inline-block;
+            `}
+          >
+            {name}
+          </span>
+          <span>{age}</span>
+        </div>
       </div>
     </animated.div>
   );
